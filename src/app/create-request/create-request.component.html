@@ -1,0 +1,50 @@
+<form [formGroup]="requestForm" class="form-container">
+  <h2 class="add-header">Create New Request</h2>
+
+  <div class="recipe-header">
+    <h2 class="add-header"></h2> <button class="add-btn" (click)=addItem()>Add Product</button>
+  </div>
+  <div formArrayName="reciepe">
+    <div *ngFor="let User of itemControls.controls;  let i=index">
+      <div [formGroupName]="i" class="recipe-container">
+
+
+
+
+        <div class="sub_input-container">
+          <label>Product</label>
+          <div class="form-select" >
+
+          <select class="form-select" formControlName="product" [compareWith]="compare"
+                  id="levelSelect" name="levelSelect" class="size-xl">
+            <option value="">Select</option>
+            <option *ngFor="let prod of products" [ngValue]="prod.id">
+              {{prod.id }} :  {{prod.description}}
+            </option>
+          </select>
+          </div>
+        </div>
+
+
+
+        <div class="sub_input-container">
+          <label>Quantity</label>
+          <input formControlName="quantity">
+        </div>
+
+
+        <div class="sub_input-container">
+
+          <button class="remove-btn" (click)=removeItem(i)>remove</button>
+        </div>
+
+
+
+
+      </div>
+      <hr>
+
+    </div>
+  </div>
+  <button (click)="submitForm()" class="submit-btn">SUBMIT</button>
+</form>
