@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Pending Requests</h1>
+
+  <div >
+    <div class="order" *ngFor="let req of pendingRequests">
+      <div class="order-header">
+        <strong>Request ID: {{req.id}}</strong>
+      </div>
+      <br>
+      <table class="product-list order-details">
+        <thead>
+        <tr >
+          <th>Product ID</th>
+          <th>Description</th>
+          <th>X Coordinate</th>
+          <th>Y Coordinate</th>
+          <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of req.requestItems">
+          <td> {{item.product.id}}</td>
+          <td>{{item.product.description}}</td>
+          <td>{{item.product.xPos}}</td>
+          <td>{{item.product.yPos}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
