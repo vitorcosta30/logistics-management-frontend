@@ -1,6 +1,6 @@
 
 
 export class RequestHistory{
-  constructor(status: string, startDate: string, durationMs: number){}
+  constructor(public status: string,public startDate: string,public durationMs: number){}
 
 }
