@@ -19,5 +19,29 @@ export class RequestService {
   getPendingRequests(): Observable<any>{
     return this.http.get(this.baseUrl+"/getAllToBeProcessed");
   }
+  getRequestsToBeReceived(): Observable<any>{
+    return this.http.get(this.baseUrl+"/getAllToBeReceived");
+  }
+  getRequest(id: number): Observable<any>{
+    return this.http.get(this.baseUrl+"/"+id)
+
+  }
+  collectItems(idProduct: number, idRequest: number): Observable<any>{
+    return this.http.patch(this.baseUrl +"/collectItem/" + idRequest + "/" +idProduct, {})
+  }
+  startProcessing(idRequest: number): Observable<any>{
+    return this.http.patch(this.baseUrl +"/startProcessing/" + idRequest , {})
+
+  }
+  sendRequest(idRequest: number): Observable<any>{
+    return this.http.patch(this.baseUrl +"/sendRequest/" + idRequest , {})
+
+  }
+
+  receiveRequest(idRequest: number): Observable<any>{
+    return this.http.patch(this.baseUrl +"/receiveRequest/" + idRequest , {})
+
+  }
+
 
 }
