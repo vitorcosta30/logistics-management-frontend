@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>Request Details</h1>
+
+  <!-- List of products to be collected -->
+  <section id="product-list">
+    <h2>Products to be Collected</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Collected</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of request?.requestItems">
+        <td>{{ product.product.description }}</td>
+        <td>{{ product.quantity }}</td>
+        <td [ngClass]="product.isCollected ? 'collected-yes' : 'collected-no'">
+          {{ product.isCollected ? 'Yes' : 'No' }}
+        </td>
+        <td>
+          <button (click)="collectItem(product)" [disabled]="product.isCollected">Collect</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Status history and current status -->
+  <section id="status">
+    <h2>Status History and Current Status</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Status</th>
+        <th>Start Date</th>
+        <th>Duration</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let status of request?.requestHistoryItems">
+        <td>{{ status.status }}</td>
+        <td>{{ status.startDate | date:'yyyy/MM/dd HH:mm:ss' }}</td>
+        <td>{{ status.durationMs }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <p id="current-status">Current Status: <span>{{ request?.currentStatus }}</span></p>
+    <button *ngIf="isToBeSent()" (click)="sendRequest()" [disabled]="!areAllProductsCollected()">Send</button>
+  </section>
+</div>
