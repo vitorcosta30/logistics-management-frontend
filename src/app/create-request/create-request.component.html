@@ -1,12 +1,13 @@
-<form [formGroup]="requestForm" class="form-container">
+<div class="container">
+<form [formGroup]="requestForm" class="form-container" *ngIf="!submitted && isUndefined()">
   <h2 class="add-header">Create New Request</h2>
 
-  <div class="recipe-header">
+  <div class="request-header">
     <h2 class="add-header"></h2> <button class="add-btn" (click)=addItem()>Add Product</button>
   </div>
-  <div formArrayName="reciepe">
+  <div formArrayName="request">
     <div *ngFor="let User of itemControls.controls;  let i=index">
-      <div [formGroupName]="i" class="recipe-container">
+      <div [formGroupName]="i" class="request-container">
 
 
 
@@ -46,5 +47,75 @@
 
     </div>
   </div>
-  <button (click)="submitForm()" class="submit-btn">SUBMIT</button>
+  <button (click)="submitForm()" [disabled]="!canSubmit()" class="submit-btn">SUBMIT</button>
 </form>
+
+
+<div class="container" *ngIf="submitted && !isUndefined()">
+  <h1>New request created</h1>
+
+  <div >
+    <div class="order">
+      <div class="order-header">
+        <strong>Request ID: {{submittedRequest?.id}}</strong>
+      </div>
+      <br>
+      <table class="product-list order-details">
+        <thead>
+        <tr >
+          <th>Product ID</th>
+          <th>Description</th>
+          <th>X Coordinate</th>
+          <th>Y Coordinate</th>
+          <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of submittedRequest?.requestItems">
+          <td> {{item.product.id}}</td>
+          <td>{{item.product.description}}</td>
+          <td>{{item.product.xPos}}</td>
+          <td>{{item.product.yPos}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+</div>
+<div class="container">
+  <h1>Requests to be received</h1>
+
+  <div >
+    <div class="order" *ngFor="let req of requestsToBeReceived">
+      <div class="order-header">
+        <strong>Request ID: {{req.id}}</strong>     <button class="confirm-button" (click)="receivedRequest(req.id)">Confirm reception</button>
+      </div>
+      <br>
+      <table class="product-list order-details">
+        <thead>
+        <tr >
+          <th>Product ID</th>
+          <th>Description</th>
+          <th>X Coordinate</th>
+          <th>Y Coordinate</th>
+          <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of req.requestItems">
+          <td> {{item.product.id}}</td>
+          <td>{{item.product.description}}</td>
+          <td>{{item.product.xPos}}</td>
+          <td>{{item.product.yPos}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
