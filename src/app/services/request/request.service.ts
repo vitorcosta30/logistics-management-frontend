@@ -26,6 +26,10 @@ export class RequestService {
     return this.http.get(this.baseUrl+"/"+id)
 
   }
+  getRoute(id: number): Observable<any>{
+    return this.http.get(this.baseUrl+"/"+id+"/getRoute")
+
+  }
   collectItems(idProduct: number, idRequest: number): Observable<any>{
     return this.http.patch(this.baseUrl +"/collectItem/" + idRequest + "/" +idProduct, {})
   }
