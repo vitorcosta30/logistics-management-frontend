@@ -16,6 +16,8 @@ export class ProcessRequestComponent implements OnInit{
 
   displayRoute: boolean = false;
   route: Position []= [];
+  displayError = false;
+  errorMessage: string = "";
 
   getRoute(){
     if(this.request != undefined) {
@@ -46,7 +48,18 @@ export class ProcessRequestComponent implements OnInit{
 
   sendRequest(): void {
     if(this.request != undefined){
-      this.requestService.sendRequest(this.request.id).subscribe(res => this.request = res);
+      this.requestService.sendRequest(this.request.id).subscribe({
+        next: res => {
+          this.request = res;
+          this.displayError = false;
+        },
+        error: err =>{
+          this.errorMessage = err;
+          this.displayError = true;
+
+        }
+
+    });
 
     }
   }

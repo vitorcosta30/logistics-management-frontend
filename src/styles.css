@@ -92,4 +92,6 @@ th {
   background-color: #ce7e3b;
 }
 
-
+.alert-warning{
+  color: red;
+}

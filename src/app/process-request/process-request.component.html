@@ -54,6 +54,9 @@
     </table>
     <p id="current-status">Current Status: <span>{{ request?.currentStatus }}</span></p>
     <button *ngIf="isToBeSent()" (click)="sendRequest()" [disabled]="!areAllProductsCollected()">Send</button>
+    <div class="alert alert-warning" *ngIf="displayError">
+      <br />{{ errorMessage }}
+    </div>
   </section>
   <br>
   <br>
