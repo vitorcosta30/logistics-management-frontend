@@ -9,6 +9,8 @@
       <tr>
         <th>Product Name</th>
         <th>Quantity</th>
+        <th>X Position</th>
+        <th>Y Position</th>
         <th>Collected</th>
         <th>Action</th>
       </tr>
@@ -17,6 +19,9 @@
       <tr *ngFor="let product of request?.requestItems">
         <td>{{ product.product.description }}</td>
         <td>{{ product.quantity }}</td>
+        <td>{{ product.product.xPos }}</td>
+        <td>{{ product.product.yPos }}</td>
+
         <td [ngClass]="product.isCollected ? 'collected-yes' : 'collected-no'">
           {{ product.isCollected ? 'Yes' : 'No' }}
         </td>
@@ -50,4 +55,25 @@
     <p id="current-status">Current Status: <span>{{ request?.currentStatus }}</span></p>
     <button *ngIf="isToBeSent()" (click)="sendRequest()" [disabled]="!areAllProductsCollected()">Send</button>
   </section>
+  <br>
+  <br>
+<section>
+  <button *ngIf="!displayRoute" (click)="getRoute()">Get route for products</button>
+  <table *ngIf="displayRoute">
+    <thead>
+    <tr>
+      <th>Order</th>
+      <th>X</th>
+      <th>Y</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pos of route; let i = index">
+      <td>{{ i + 1 }}º</td>
+      <td>{{ pos.posX }}</td>
+      <td>{{ pos.posY }}</td>
+    </tr>
+    </tbody>
+  </table>
+</section>
 </div>

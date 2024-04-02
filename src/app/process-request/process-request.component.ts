@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import{ Request} from "../models/request.model";
 import {Product} from "../models/product.model";
 import {RequestItem} from "../models/request-item.model";
+import {Position} from "../models/position.model";
 @Component({
   selector: 'app-process-request',
 
@@ -12,6 +13,18 @@ import {RequestItem} from "../models/request-item.model";
 })
 export class ProcessRequestComponent implements OnInit{
   request? : Request;
+
+  displayRoute: boolean = false;
+  route: Position []= [];
+
+  getRoute(){
+    if(this.request != undefined) {
+      this.requestService.getRoute(this.request?.id).subscribe(res =>{
+        this.displayRoute = true;
+        this.route = res;
+      })
+    }
+  }
 
 
 
