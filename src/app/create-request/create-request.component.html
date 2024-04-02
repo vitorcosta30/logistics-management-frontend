@@ -34,6 +34,8 @@
         </div>
 
 
+
+
         <div class="sub_input-container">
 
           <button class="remove-btn" (click)=removeItem(i)>remove</button>
@@ -48,6 +50,9 @@
     </div>
   </div>
   <button (click)="submitForm()" [disabled]="!canSubmit()" class="submit-btn">SUBMIT</button>
+  <div class="alert alert-warning" *ngIf="displayError">
+    <br />{{ errorMessage }}
+  </div>
 </form>
 
 

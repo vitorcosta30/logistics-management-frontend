@@ -27,6 +27,8 @@ export class CreateRequestComponent implements OnInit{
   requestsToBeReceived: Request[] = [];
 
   submitted: boolean = false;
+  displayError = false;
+  errorMessage: string = "";
 
   constructor(private fb: FormBuilder, private productService: ProductService, private requestService: RequestService) {
     this.requestForm = this.fb.group({
@@ -96,13 +98,23 @@ export class CreateRequestComponent implements OnInit{
 
     console.log(this.items)
     console.log(this.requestForm.value.request);
-    this.requestService.createRequest(this.items).subscribe(res =>{
-      this.submitted = true;
-      this.submittedRequest = res;
-      this.getRequestsToBeReceived();
+    this.requestService.createRequest(this.items).subscribe({
+      next: res => {
+        this.displayError = false;
+
+        this.submitted = true;
+        this.submittedRequest = res;
+        this.getRequestsToBeReceived();
 
 
-    });
+      },
+      error: err => {
+        this.errorMessage = err;
+        this.displayError = true;
+
+      }
+    }
+  );
   }
   totalQuantity(): number{
     let res = 0;
